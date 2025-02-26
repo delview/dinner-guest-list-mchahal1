@@ -38,14 +38,21 @@ def dinnerlistmaker():
         choice = input("Would you like to remove someone from the invitaion list? [y] or [n]: ").strip()
 
         if choice == "y":
-            numofremove = int(input("How many people would you like to remove: ").strip())
-            for x in range(numofremove):
-                guests.remove(input("Who would you like to remove?").strip().capitalize())
+            while True:
+                numofremove = errorfixer(input("How many people would you like to remove: ").strip())
+                for x in range(numofremove):
+                    try:
+                        guests.remove(input("Who would you like to remove?").strip().capitalize())
+                    except ValueError:
+                        print("They are not in the dinner list!")
+                        
+                break
+                    
             # Regenerate invitaions
             for x in guests:
                 print(f"You are invited to {name}'s dinner {x}")
 
-        if choice == "n":
+        elif choice == "n":
             print("Then your list is finished!")
             break
         else:
